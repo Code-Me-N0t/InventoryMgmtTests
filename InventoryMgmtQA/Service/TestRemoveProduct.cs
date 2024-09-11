@@ -40,6 +40,8 @@ namespace InventoryMgmtQA.Service
         public void TestRemoveProductZeroID()
         {
             using StringWriter sw = new();
+            var originalOut = Console.Out;
+
             Console.SetOut(sw);
             _inventoryManager.AddNewProduct(
                 "Test Product",
@@ -47,7 +49,11 @@ namespace InventoryMgmtQA.Service
                 1.23M
             );
             _inventoryManager.RemoveProduct(0);
-            Assert.IsFalse(sw.ToString().Contains("Product removed successfully."));
+            Console.SetOut(originalOut);
+
+            Console.WriteLine(sw.ToString());
+            
+            Assert.IsTrue(sw.ToString().Contains("Product not found"));
         }
     }
 }

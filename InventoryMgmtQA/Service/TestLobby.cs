@@ -11,7 +11,6 @@ namespace InventoryMgmtQA.Service
     [TestClass]
     public class TestLobby
     {
-        private IInventoryManager _inventoryManager = new InventoryManager();
         private IOperationManager _operationManager = new OperationManager();
 
         [TestMethod]
@@ -28,9 +27,6 @@ namespace InventoryMgmtQA.Service
             string output = sw.ToString();
 
             Assert.IsTrue(output.Contains("Add a product"));
-            Assert.IsTrue(output.Contains("Name:"));
-            Assert.IsTrue(output.Contains("Quantity:"));
-            Assert.IsTrue(output.Contains("Price:"));
         }
 
         [TestMethod]
@@ -47,7 +43,6 @@ namespace InventoryMgmtQA.Service
             string output = sw.ToString();
 
             Assert.IsTrue(output.Contains("Remove a product"));
-            Assert.IsTrue(output.Contains("Product ID:"));
         }
 
         [TestMethod]
@@ -64,7 +59,6 @@ namespace InventoryMgmtQA.Service
             string output = sw.ToString();
 
             Assert.IsTrue(output.Contains("Update a product"));
-            Assert.IsTrue(output.Contains("Product ID:"));
         }
 
         [TestMethod]

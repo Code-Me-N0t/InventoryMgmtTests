@@ -7,11 +7,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace InventoryMgmtQA.Service
 {
     [TestClass]
-    public class ProductTests
+    public class ProductTest
     {
         private IInventoryManager _inventoryManager;
-
-        public ProductTests() => _inventoryManager = new InventoryManager();
+        public ProductTest() => _inventoryManager = new InventoryManager();
 
         [TestMethod]
         public void TestAddProduct()
@@ -37,7 +36,6 @@ namespace InventoryMgmtQA.Service
     public class ProductNameErrorMessageTest
     {
         private IInventoryManager _inventoryManager;
-
 
         public ProductNameErrorMessageTest() => _inventoryManager = new InventoryManager();
 
@@ -66,8 +64,6 @@ namespace InventoryMgmtQA.Service
     public class ProductQuantityErrorMessageTest
     {
         private IInventoryManager _inventoryManager;
-
-
         public ProductQuantityErrorMessageTest() => _inventoryManager = new InventoryManager();
 
         [TestMethod]
@@ -84,8 +80,6 @@ namespace InventoryMgmtQA.Service
     public class ProductPriceErrorMessageTest
     {
         private IInventoryManager _inventoryManager;
-
-
         public ProductPriceErrorMessageTest() => _inventoryManager = new InventoryManager();
 
         [TestMethod]

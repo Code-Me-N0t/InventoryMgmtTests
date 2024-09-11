@@ -16,7 +16,7 @@ namespace InventoryMgmtQA.Service
         private IInventoryManager _inventoryManager = new InventoryManager();
 
         [TestMethod]
-        public void TestGetTotalValue()
+        public void TestTotalValueOutput()
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
@@ -30,35 +30,48 @@ namespace InventoryMgmtQA.Service
         }
 
         [TestMethod]
-        public void TestGetTotalValueUpdates()
-        {
+        public void TestTotalValueComputation(){
             var quantity1 = 3;
-            var price1 = 300;
+            decimal price1 = 300;
 
             var quantity2 = 2;
-            var price2 = 600;
+            decimal price2 = 600;
+
+            decimal expected_result = (quantity1 * price1) + (quantity2 * price2);
 
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct(
-                "TestProduct",
-                3,
-                300
-            );
 
-            _inventoryManager.AddNewProduct(
-                "TestProduct 2",
-                2,
-                600
-            );
-
-            var result1 = quantity1 * price1;
-            var result2 = quantity2 * price2;
-
-            var totalResult = Convert.ToDecimal(result1 + result2);
+            _inventoryManager.AddNewProduct("TestProduct1", quantity1, price1);
+            _inventoryManager.AddNewProduct("TestProduct2", quantity2, price2);
 
             _inventoryManager.GetTotalValue();
+
+            var actual_result = sw.ToString().Replace(",","");
+
+            Assert.IsTrue(actual_result.Contains(expected_result.ToString()));
         }
 
+        [TestMethod]
+        public void TestTotalValueAfterRemoval(){
+            var quantity1 = 3;
+            decimal price1 = 300;
+
+            var quantity2 = 2;
+            decimal price2 = 600;
+            decimal product2 = quantity2 * price2;
+
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+
+            _inventoryManager.AddNewProduct("TestProduct1", quantity1, price1);
+            _inventoryManager.AddNewProduct("TestProduct2", quantity2, price2);
+            _inventoryManager.RemoveProduct(1);
+            _inventoryManager.GetTotalValue();
+
+            var actual_result = sw.ToString().Replace(",","");
+
+            Assert.IsTrue(actual_result.Contains(product2.ToString()));
+        }
     }
 }
