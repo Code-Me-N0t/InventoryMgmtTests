@@ -16,17 +16,38 @@ namespace InventoryMgmtQA.Service
         [TestMethod]
         public void TestRemoveProduct()
         {
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                _inventoryManager.AddNewProduct(
-                    "Test Product",
-                    1,
-                    1.23M
-                );
-                _inventoryManager.RemoveProduct(1);
-                Assert.IsTrue(sw.ToString().Contains("Product removed successfully."));
-            }
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+            _inventoryManager.AddNewProduct(
+                "Test Product",
+                1,
+                1.23M
+            );
+            _inventoryManager.RemoveProduct(1);
+            Assert.IsTrue(sw.ToString().Contains("Product removed successfully."));
+        }
+
+        [TestMethod]
+        public void TestRemoveProductNotFound()
+        {
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+            _inventoryManager.RemoveProduct(1);
+            Assert.IsTrue(sw.ToString().Contains("Product not found, please try again."));
+        }
+
+        [TestMethod]
+        public void TestRemoveProductZeroID()
+        {
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+            _inventoryManager.AddNewProduct(
+                "Test Product",
+                1,
+                1.23M
+            );
+            _inventoryManager.RemoveProduct(0);
+            Assert.IsFalse(sw.ToString().Contains("Product removed successfully."));
         }
     }
 }

@@ -16,17 +16,15 @@ namespace InventoryMgmtQA.Service
         [TestMethod]
         public void TestGetTotalValue()
         {
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                _inventoryManager.AddNewProduct(
-                    "TestProduct",
-                    1,
-                    2.56M
-                );
-                _inventoryManager.GetTotalValue();
-                Assert.IsTrue(sw.ToString().Contains("2.56"));
-            }
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+            _inventoryManager.AddNewProduct(
+                "TestProduct",
+                1,
+                2.56M
+            );
+            _inventoryManager.GetTotalValue();
+            Assert.IsTrue(sw.ToString().Contains("2.56"));
         }
 
     }

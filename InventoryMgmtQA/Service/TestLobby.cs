@@ -17,116 +17,96 @@ namespace InventoryMgmtQA.Service
         [TestMethod]
         public void TestNavigateAddProduct(){
             string input = "TestProduct\n10\n99.99\n";
-            using (StringReader stringReader = new StringReader(input))
-            {
-                Console.SetIn(stringReader);
+            using StringReader stringReader = new(input);
+            Console.SetIn(stringReader);
 
-                using (StringWriter sw = new StringWriter())
-                {
-                    Console.SetOut(sw);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
 
-                    _operationManager.StartOperation(1);
+            _operationManager.StartOperation(1);
 
-                    string output = sw.ToString();
+            string output = sw.ToString();
 
-                    Assert.IsTrue(output.Contains("Add a product"));
-                    Assert.IsTrue(output.Contains("Name:"));
-                    Assert.IsTrue(output.Contains("Quantity:"));
-                    Assert.IsTrue(output.Contains("Price:"));
-                }
-            }
+            Assert.IsTrue(output.Contains("Add a product"));
+            Assert.IsTrue(output.Contains("Name:"));
+            Assert.IsTrue(output.Contains("Quantity:"));
+            Assert.IsTrue(output.Contains("Price:"));
         }
 
         [TestMethod]
         public void TestNavigateRemoveProduct(){
             string input = "1";
-            using (StringReader stringReader = new StringReader(input))
-            {
-                Console.SetIn(stringReader);
+            using StringReader stringReader = new(input);
+            Console.SetIn(stringReader);
 
-                using (StringWriter sw = new StringWriter())
-                {
-                    Console.SetOut(sw);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
 
-                    _operationManager.StartOperation(2);
+            _operationManager.StartOperation(2);
 
-                    string output = sw.ToString();
+            string output = sw.ToString();
 
-                    Assert.IsTrue(output.Contains("Remove a product"));
-                    Assert.IsTrue(output.Contains("Product ID:"));
-                }
-            }
+            Assert.IsTrue(output.Contains("Remove a product"));
+            Assert.IsTrue(output.Contains("Product ID:"));
         }
 
         [TestMethod]
         public void TestNavigateModifyProduct(){
             string input = "1\n1";
-            using (StringReader stringReader = new StringReader(input))
-            {
-                Console.SetIn(stringReader);
+            using StringReader stringReader = new(input);
+            Console.SetIn(stringReader);
 
-                using (StringWriter sw = new StringWriter())
-                {
-                    Console.SetOut(sw);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
 
-                    _operationManager.StartOperation(3);
+            _operationManager.StartOperation(3);
 
-                    string output = sw.ToString();
+            string output = sw.ToString();
 
-                    Assert.IsTrue(output.Contains("Update a product"));
-                    Assert.IsTrue(output.Contains("Product ID:"));
-                }
-            }
+            Assert.IsTrue(output.Contains("Update a product"));
+            Assert.IsTrue(output.Contains("Product ID:"));
         }
 
         [TestMethod]
         public void TestNavigateGetTotalValue(){
 
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
 
-                _operationManager.StartOperation(4);
+            _operationManager.StartOperation(4);
 
-                string output = sw.ToString();
-                
-                Assert.IsTrue(output.Contains("Total value of inventory"));
-            }
+            string output = sw.ToString();
+
+            Assert.IsTrue(output.Contains("Total value of inventory"));
         }
 
         [TestMethod]
         public void TestNavigateListProducts(){
 
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
 
-                _operationManager.StartOperation(5);
+            _operationManager.StartOperation(5);
 
-                string output = sw.ToString();
+            string output = sw.ToString();
 
-                Assert.IsTrue(output.Contains("No products in here"));
-            }
+            Assert.IsTrue(output.Contains("No products in here"));
         }
 
         [TestMethod]
         public void TestNavigateInvalidInput(){
             string input = "0";
-            using (StringReader stringReader = new StringReader(input))
+            using StringReader stringReader = new(input);
+            Console.SetIn(stringReader);
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+
+            var exception = Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                Console.SetIn(stringReader);
-                using (StringWriter sw = new StringWriter())
-                {
-                    Console.SetOut(sw);
+                _operationManager.StartOperation(0);
+            });
 
-                    var exception = Assert.ThrowsException<InvalidOperationException>(() =>
-                    {
-                        _operationManager.StartOperation(0);
-                    });
-
-                    Assert.IsTrue(exception.Message.Contains("Invalid operation! Please try again."));
-                }
-            }
+            Assert.IsTrue(exception.Message.Contains("Invalid operation! Please try again."));
         }
     }
 }
