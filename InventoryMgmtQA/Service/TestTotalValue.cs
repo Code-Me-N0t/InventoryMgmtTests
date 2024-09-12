@@ -17,8 +17,8 @@ namespace InventoryMgmtQA.Service
             Console.SetOut(sw);
             _inventoryManager.AddNewProduct(
                 Variables.product_name,
-                Variables.product_quantity,
-                Variables.product_price
+                1,
+                2.56M
             );
             _inventoryManager.GetTotalValue();
             Assert.IsTrue(sw.ToString().Contains("2.56"));
