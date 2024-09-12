@@ -37,7 +37,6 @@ namespace InventoryMgmtQA.Model
                 QuantityInStock = Variables.product_quantity,
                 Price = Variables.product_price
             };
-
             var results = new List<ValidationResult>();
             var context = new ValidationContext(product, null, null);
             bool isProductValid = Validator.TryValidateObject(product, context, results, true);
