@@ -1,5 +1,6 @@
 using InventoryMgmt.Service;
 using InventoryMgmt.Interface;
+using InventoryMgmtQA;
 
 namespace InventoryMgmtQA.Service
 {
@@ -14,8 +15,12 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct("TestProduct", 1, 1.23M);
-            Assert.IsTrue(sw.ToString().Contains("success"));
+            _inventoryManager.AddNewProduct(
+                Variables.product_name, 
+                Variables.product_quantity, 
+                Variables.product_price
+            );
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_added_success));
         }
 
         [TestMethod]
@@ -23,9 +28,13 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct("Newly Added Product", 1, 1.23M);
+            _inventoryManager.AddNewProduct(
+                Variables.product_name, 
+                Variables.product_quantity, 
+                Variables.product_price
+            );
             _inventoryManager.ListProducts();
-            Assert.IsTrue(sw.ToString().Contains("Newly Added Product"));
+            Assert.IsTrue(sw.ToString().Contains(Variables.product_name));
         }
     }
 
@@ -41,9 +50,13 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct("", 1, 1.23M);
+            _inventoryManager.AddNewProduct(
+                "", 
+                Variables.product_quantity,
+                Variables.product_price
+            );
             _inventoryManager.ListProducts();
-            Assert.IsTrue(sw.ToString().Contains("Name should not be empty"));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_name_error));
         }
 
         [TestMethod]
@@ -51,9 +64,13 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct(" ", 1, 1.23M);
+            _inventoryManager.AddNewProduct(
+                " ", 
+                Variables.product_quantity, 
+                Variables.product_price
+            );
             _inventoryManager.ListProducts();
-            Assert.IsTrue(sw.ToString().Contains("Name should not be empty"));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_name_error));
         }
     }
 
@@ -68,8 +85,12 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct("TestProduct", -1, 1);
-            Assert.IsTrue(sw.ToString().Contains("Quantity must be greater than or equal to 0."));
+            _inventoryManager.AddNewProduct(
+                Variables.product_name,
+                -1, 
+                Variables.product_price
+            );
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_number_error));
         }
     }
 
@@ -84,8 +105,12 @@ namespace InventoryMgmtQA.Service
         {
             using StringWriter sw = new();
             Console.SetOut(sw);
-            _inventoryManager.AddNewProduct("TestProduct", 1, -1.0M);
-            Assert.IsTrue(sw.ToString().Contains("Price must be greater than or equal to 0."));
+            _inventoryManager.AddNewProduct(
+                Variables.product_name, 
+                Variables.product_quantity, 
+                -1.0M
+            );
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_number_error));
         }
     }
 }

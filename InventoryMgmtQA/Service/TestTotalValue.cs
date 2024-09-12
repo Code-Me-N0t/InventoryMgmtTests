@@ -16,9 +16,9 @@ namespace InventoryMgmtQA.Service
             using StringWriter sw = new();
             Console.SetOut(sw);
             _inventoryManager.AddNewProduct(
-                "TestProduct",
-                1,
-                2.56M
+                Variables.product_name,
+                Variables.product_quantity,
+                Variables.product_price
             );
             _inventoryManager.GetTotalValue();
             Assert.IsTrue(sw.ToString().Contains("2.56"));

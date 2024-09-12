@@ -18,7 +18,11 @@ namespace InventoryMgmtQA.Service
             using StringWriter sw = new();
             Console.SetOut(sw);
 
-            _inventoryManager.AddNewProduct("TestProduct", initial_quantity, 1.23M);
+            _inventoryManager.AddNewProduct(
+                Variables.product_name, 
+                initial_quantity, 
+                Variables.product_price
+            );
             _inventoryManager.UpdateProduct(1, updated_quantity);
             _inventoryManager.ListProducts();
 
@@ -29,29 +33,13 @@ namespace InventoryMgmtQA.Service
         }
 
         [TestMethod]
-        public void TestUpdateProductSuccess()
-        {
-            int initial_quantity = 1;
-            int updated_quantity = 5;
-
-            using StringWriter sw = new();
-            Console.SetOut(sw);
-
-            _inventoryManager.AddNewProduct("TestProduct", initial_quantity, 1.23M);
-            _inventoryManager.UpdateProduct(1, updated_quantity);
-            _inventoryManager.ListProducts();
-
-            Assert.IsTrue(sw.ToString().Contains("success"));
-        }
-
-        [TestMethod]
         public void TestUpdateProductEmpty(){
             using StringWriter sw = new();
             Console.SetOut(sw);
 
             _inventoryManager.UpdateProduct(1, 5);
 
-            Assert.IsTrue(sw.ToString().Contains("Product not found"));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_notfound_error));
         }
 
         [TestMethod]
@@ -59,11 +47,15 @@ namespace InventoryMgmtQA.Service
             using StringWriter sw = new();
             Console.SetOut(sw);
             
-            _inventoryManager.AddNewProduct("TestProduct", 2, 1.23M);
+            _inventoryManager.AddNewProduct(
+                Variables.product_name, 
+                Variables.product_quantity, 
+                Variables.product_price
+            );
             _inventoryManager.RemoveProduct(1);
             _inventoryManager.UpdateProduct(1, 5);
 
-            Assert.IsTrue(sw.ToString().Contains("Product not found"));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_notfound_error));
         }
     }
 }

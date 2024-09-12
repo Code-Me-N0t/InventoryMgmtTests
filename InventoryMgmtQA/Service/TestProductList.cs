@@ -12,14 +12,17 @@ namespace InventoryMgmtQA.Service
         [TestMethod]
         public void TestViewProductList()
         {
-            string product_name = "TestProduct";
-            int product_quantity = 4;
-            decimal product_price = 1.23M;
+            string product_name = Variables.product_name;
+            int product_quantity = Variables.product_quantity;
+            decimal product_price = Variables.product_price;
 
             using StringWriter sw = new();
             Console.SetOut(sw);
 
-            _inventoryManager.AddNewProduct(product_name, product_quantity, product_price);
+            _inventoryManager.AddNewProduct(
+                product_name, 
+                product_quantity, 
+                product_price);
             _inventoryManager.ListProducts();
 
             string[] results = sw.ToString().Split(',');
@@ -34,10 +37,10 @@ namespace InventoryMgmtQA.Service
 
         [TestMethod]
         public void TestViewUpdatedProductList(){
-            string product_name = "TestProduct";
+            string product_name = Variables.product_name;
             int initial_quantity = 4;
             int updated_quantity = 1;
-            decimal product_price = 1.23M;
+            decimal product_price = Variables.product_price;
 
             using StringWriter sw = new();
             Console.SetOut(sw);
@@ -76,7 +79,7 @@ namespace InventoryMgmtQA.Service
             _inventoryManager.RemoveProduct(1);
             _inventoryManager.ListProducts();
 
-            Assert.IsTrue(sw.ToString().Contains("No products in here."));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_list_error));
         }
 
         [TestMethod]

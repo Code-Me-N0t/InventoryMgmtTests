@@ -8,7 +8,7 @@ namespace InventoryMgmtQA.Service
     [TestClass]
     public class RemoveProductTest
     {
-        private IInventoryManager _inventoryManager = new InventoryManager();
+        private readonly IInventoryManager _inventoryManager = new InventoryManager();
 
         [TestMethod]
         public void TestRemoveProduct()
@@ -16,12 +16,12 @@ namespace InventoryMgmtQA.Service
             using StringWriter sw = new();
             Console.SetOut(sw);
             _inventoryManager.AddNewProduct(
-                "Test Product",
-                1,
-                1.23M
+                Variables.product_name,
+                Variables.product_quantity,
+                Variables.product_price
             );
             _inventoryManager.RemoveProduct(1);
-            Assert.IsTrue(sw.ToString().Contains("Product removed successfully."));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_removed_success));
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace InventoryMgmtQA.Service
             using StringWriter sw = new();
             Console.SetOut(sw);
             _inventoryManager.RemoveProduct(1);
-            Assert.IsTrue(sw.ToString().Contains("Product not found, please try again."));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_notfound_error));
         }
 
         [TestMethod]
@@ -41,16 +41,16 @@ namespace InventoryMgmtQA.Service
 
             Console.SetOut(sw);
             _inventoryManager.AddNewProduct(
-                "Test Product",
-                1,
-                1.23M
+                Variables.product_name,
+                Variables.product_quantity,
+                Variables.product_price
             );
             _inventoryManager.RemoveProduct(0);
             Console.SetOut(originalOut);
 
             Console.WriteLine(sw.ToString());
             
-            Assert.IsTrue(sw.ToString().Contains("Product not found"));
+            Assert.IsTrue(sw.ToString().Contains(Messages.msg_notfound_error));
         }
     }
 }

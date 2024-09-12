@@ -1,5 +1,6 @@
 using InventoryMgmt.Service;
 using InventoryMgmt.Interface;
+using InventoryMgmt;
 
 // guide: https://www.aligrant.com/web/blog/2020-07-20_capturing_console_outputs_with_microsoft_test_framework
 
@@ -81,7 +82,7 @@ namespace InventoryMgmtQA.Service
 
             string output = sw.ToString();
 
-            Assert.IsTrue(output.Contains("No products in here"));
+            Assert.IsTrue(output.Contains(Messages.msg_list_error));
         }
 
         [TestMethod]
@@ -97,7 +98,7 @@ namespace InventoryMgmtQA.Service
                 _operationManager.StartOperation(0);
             });
 
-            Assert.IsTrue(exception.Message.Contains("Invalid operation! Please try again."));
+            Assert.IsTrue(exception.Message.Contains(Messages.msg_invalid_error));
         }
     }
 }

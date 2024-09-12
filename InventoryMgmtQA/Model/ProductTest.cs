@@ -1,5 +1,6 @@
 using InventoryMgmt.Model;
 using System.ComponentModel.DataAnnotations;
+using InventoryMgmtQA;
 
 // guide: https://learn.microsoft.com/en-us/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code?view=vs-2022
 
@@ -14,9 +15,9 @@ namespace InventoryMgmtQA.Model
             // create a new product with compliant attribute values
             Product product = new()
             {
-                Name = "TestProduct",
-                QuantityInStock = 1,
-                Price = 1.0M
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -33,8 +34,8 @@ namespace InventoryMgmtQA.Model
             Product product = new()
             {
                 Name = "",
-                QuantityInStock = 1,
-                Price = 1.0M
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -50,8 +51,8 @@ namespace InventoryMgmtQA.Model
             Product product = new()
             {
                 Name = " ",
-                QuantityInStock = 1,
-                Price = 1.0M
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -66,9 +67,9 @@ namespace InventoryMgmtQA.Model
         {
             Product product = new()
             {
-                Name = "TestProduct",
+                Name = Variables.product_name,
                 QuantityInStock = -1,
-                Price = 1.0M
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -81,11 +82,13 @@ namespace InventoryMgmtQA.Model
         [TestMethod]
         public void TestAddProductQuantityLargeNumber()
         {
+            int Quantity = 2147483647;
+
             Product product = new()
             {
-                Name = "TestProduct",
-                QuantityInStock = 2147483647,
-                Price = 1.0M
+                Name = Variables.product_name,
+                QuantityInStock = Quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -100,8 +103,8 @@ namespace InventoryMgmtQA.Model
         {
             Product product = new()
             {
-                Name = "TestProduct",
-                QuantityInStock = 1,
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
                 Price = -1.0M
             };
 
@@ -117,8 +120,8 @@ namespace InventoryMgmtQA.Model
         {
             Product product = new()
             {
-                Name = "TestProduct",
-                QuantityInStock = 1,
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
                 Price = 1.79228162514264337593543950335m
             };
 
@@ -135,9 +138,9 @@ namespace InventoryMgmtQA.Model
             Product product = new()
             {
                 ProductID = 1,
-                Name = "TestProduct",
-                QuantityInStock = 1,
-                Price = 1.0M
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -146,16 +149,16 @@ namespace InventoryMgmtQA.Model
 
             Assert.IsTrue(isProductValid);
         }
-//dotnet test --logger "console;verbosity=detailed" ==filter "TestProductIDZero"
+
         [TestMethod]
         public void TestProductIDZero()
         {
             Product product = new()
             {
                 ProductID = 0,
-                Name = "TestProduct",
-                QuantityInStock = 1,
-                Price = 1.0M
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
@@ -171,9 +174,9 @@ namespace InventoryMgmtQA.Model
             Product product = new()
             {
                 ProductID = -1,
-                Name = "TestProduct",
-                QuantityInStock = 1,
-                Price = 1.0M
+                Name = Variables.product_name,
+                QuantityInStock = Variables.product_quantity,
+                Price = Variables.product_price
             };
 
             var results = new List<ValidationResult>();
