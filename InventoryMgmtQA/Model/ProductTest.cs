@@ -84,7 +84,7 @@ namespace InventoryMgmtQA.Model
             Product product = new()
             {
                 Name = "TestProduct",
-                QuantityInStock = 9223372036854775807L,
+                QuantityInStock = 2147483647,
                 Price = 1.0M
             };
 
@@ -146,7 +146,7 @@ namespace InventoryMgmtQA.Model
 
             Assert.IsTrue(isProductValid);
         }
-
+//dotnet test --logger "console;verbosity=detailed" ==filter "TestProductIDZero"
         [TestMethod]
         public void TestProductIDZero()
         {

@@ -15,8 +15,8 @@ namespace InventoryMgmt.Model
         public required string Name { get; set; }
 
         [Required]
-        [Range(0, long.MaxValue, ErrorMessage="Quantity must be greater than or equal to {1}.")]
-        public required long QuantityInStock { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage="Quantity must be greater than or equal to {1}.")]
+        public required int QuantityInStock { get; set; }
         
         [Required]
         [Range(typeof(decimal), "0", "79228162514264337593543950335", ErrorMessage="Price must be greater than or equal to {1}.")]

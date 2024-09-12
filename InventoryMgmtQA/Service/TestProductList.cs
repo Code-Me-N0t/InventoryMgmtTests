@@ -1,8 +1,5 @@
 using InventoryMgmt.Service;
 using InventoryMgmt.Interface;
-using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InventoryMgmtQA.Service
 {

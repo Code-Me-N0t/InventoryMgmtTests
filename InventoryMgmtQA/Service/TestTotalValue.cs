@@ -1,10 +1,5 @@
-using InventoryMgmt.Model;
 using InventoryMgmt.Service;
 using InventoryMgmt.Interface;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 
 // guide: https://www.aligrant.com/web/blog/2020-07-20_capturing_console_outputs_with_microsoft_test_framework
 

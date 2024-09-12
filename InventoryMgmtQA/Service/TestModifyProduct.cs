@@ -1,8 +1,5 @@
 using InventoryMgmt.Service;
 using InventoryMgmt.Interface;
-using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InventoryMgmtQA.Service
 {
@@ -29,6 +26,22 @@ namespace InventoryMgmtQA.Service
             string getLastResult = results[^2];
 
             Assert.IsFalse(initial_quantity == updated_quantity);
+        }
+
+        [TestMethod]
+        public void TestUpdateProductSuccess()
+        {
+            int initial_quantity = 1;
+            int updated_quantity = 5;
+
+            using StringWriter sw = new();
+            Console.SetOut(sw);
+
+            _inventoryManager.AddNewProduct("TestProduct", initial_quantity, 1.23M);
+            _inventoryManager.UpdateProduct(1, updated_quantity);
+            _inventoryManager.ListProducts();
+
+            Assert.IsTrue(sw.ToString().Contains("success"));
         }
 
         [TestMethod]
